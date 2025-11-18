@@ -2,6 +2,8 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import { allPosts } from "contentlayer/generated";
+import { useShare } from "@/hooks/use-share";
+import { Button } from "@/components/ui/button";
 
 import {
   Breadcrumb,
@@ -26,6 +28,14 @@ export default function PostPage() {
     day: "2-digit",
     month: "long",
     year: "numeric",
+  });
+
+  const postUrl = `https://site.set/blog/${slug}`;
+
+  const { shareButtons } = useShare({
+    url: postUrl,
+    title: post.title,
+    text: post.description,
   });
 
   return (
@@ -65,7 +75,11 @@ export default function PostPage() {
                 {post?.title}
               </h1>
               <Avatar.Container>
-                <Avatar.Image src={post?.author.avatar} alt={post?.title} size="sm" />
+                <Avatar.Image
+                  src={post?.author.avatar}
+                  alt={post?.title}
+                  size="sm"
+                />
                 <Avatar.Content>
                   <Avatar.Title>{post?.author.name}</Avatar.Title>
                   <Avatar.Description>
@@ -80,6 +94,28 @@ export default function PostPage() {
               <Markdown content={post.body.raw} />
             </div>
           </article>
+
+          <aside className="space-y-6">
+            <div className="rounded-lg bg-gray-700 p-4 md:p-6">
+              <h2 className="mb-4 text-heading-xs text-gray-100">
+                Compartilhar
+              </h2>
+
+              <div className="space-y-3">
+                {shareButtons.map((provider) => (
+                  <Button
+                    key={provider.provider}
+                    onClick={() => provider.action()}
+                    variant="outline"
+                    className="w-full justify-start gap-2"
+                  >
+                    {provider.icon}
+                    {provider.name}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </aside>
         </div>
       </div>
     </main>
