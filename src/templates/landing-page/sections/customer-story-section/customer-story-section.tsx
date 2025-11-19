@@ -7,16 +7,16 @@ const customerStories = [
     author: {
       name: "Ana Silva",
       role: "Gerente de Projetos na Tech Solutions",
-      avatar: "/customer-01.jpg",
+      avatar: "/assets/avatar/customer-02.png",
     },
   },
   {
     content:
       "Desde que começamos a usar este produto, nossa eficiência aumentou significativamente. A interface é intuitiva e o suporte ao cliente é excepcional.",
     author: {
-      name: "Ana Silva",
-      role: "Gerente de Projetos na Tech Solutions",
-      avatar: "/customer-01.jpg",
+      name: "João Mendes",
+      role: "Especialista em Marketing",
+      avatar: "/assets/avatar/customer-03.png",
     },
   },
 ];
@@ -25,19 +25,19 @@ export const CustomerStorySection = () => {
   return (
     <section className="container py-8 md:py-10">
       <div className="flex flex-col items-center gap-12">
-        <h2
-          className="font-sans text-heading-xl text-gray-100"
-        >
+        <h2 className="font-sans text-heading-xl text-gray-100">
           Quem utiliza, aprova!
         </h2>
 
         <div className="grid gap-8 md:grid-cols-2">
-          {customerStories.map((customerStory) => (
+          {customerStories.map((customerStory, index) => (
             <div
-              key={customerStory.author.name}
+              key={index}
               className="flex flex-col gap-6 bg-gray-500 p-6 rounded-lg md:p-12"
             >
-              <p className="text-balance text-gray-200">{customerStory.content}</p>
+              <p className="text-balance text-gray-200">
+                {customerStory.content}
+              </p>
 
               <div className="flex items-center gap-3">
                 <div className="relative h-10 w-10 overflow-hidden rounded-full">
@@ -51,8 +51,12 @@ export const CustomerStorySection = () => {
                 </div>
 
                 <div className="flex flex-col">
-                  <strong className="text-gray-200 text-sm">{customerStory.author.name}</strong>
-                  <span className="text-xs text-gray-300">{customerStory.author.role}</span>
+                  <strong className="text-gray-200 text-sm">
+                    {customerStory.author.name}
+                  </strong>
+                  <span className="text-xs text-gray-300">
+                    {customerStory.author.role}
+                  </span>
                 </div>
               </div>
             </div>
